@@ -1,0 +1,5 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+/artifacts/shared_jvm.xml
+/artifacts/shared_wasm_js.xml
