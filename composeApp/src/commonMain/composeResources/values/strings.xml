@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">demoKMPCD</string>
+    <string name="cancel">Cancel</string>
+    <string name="next">Next</string>
+    <string name="quantity">Quantity</string>
+    <string name="back_button">Back</string>
+    <string name="text">Text</string>
+<!--    <string name="cupcakes">%1$d cupcakes</string>-->
+</resources>
