@@ -14,6 +14,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import demokmpcd.composeapp.generated.resources.Res
 import demokmpcd.composeapp.generated.resources.app_name
+import demokmpcd.composeapp.generated.resources.list
 import demokmpcd.composeapp.generated.resources.text
 import fr.juque.composeApp.ui.components.BackBar
 import org.jetbrains.compose.resources.StringResource
@@ -24,7 +25,8 @@ import org.jetbrains.compose.resources.StringResource
  */
 enum class AppScreen(val title: StringResource) {
     Start(title = Res.string.app_name),
-    DemoComposeText(title = Res.string.text)
+    DemoComposeText(title = Res.string.text),
+    DemoComposeList(title = Res.string.list),
 }
 
 @Composable
@@ -66,6 +68,14 @@ fun AppScreen(
 
             composable(route = AppScreen.DemoComposeText.name) {
                 DemoComposeTextScreen(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                )
+            }
+
+            composable(route = AppScreen.DemoComposeList.name) {
+                DemoComposeListScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(16.dp)
