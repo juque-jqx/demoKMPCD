@@ -1,19 +1,14 @@
 package fr.juque.composeApp.ui.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import cafe.adriel.voyager.core.stack.rememberStateStack
 import demokmpcd.composeapp.generated.resources.Res
-import demokmpcd.composeapp.generated.resources.app_name
 import demokmpcd.composeapp.generated.resources.list
 import demokmpcd.composeapp.generated.resources.text
 import fr.juque.composeApp.ui.components.BackBar
@@ -24,41 +19,31 @@ import org.jetbrains.compose.resources.StringResource
  * enum values that represent the screens in the app
  */
 enum class AppScreen(val title: StringResource) {
-    Start(title = Res.string.app_name),
     DemoComposeText(title = Res.string.text),
     DemoComposeList(title = Res.string.list),
 }
 
 @Composable
-fun AppScreen(
-    navController: NavHostController = rememberNavController()
-) {
-    val backStackEntry by navController.currentBackStackEntryAsState()
-    val currentScreen = AppScreen.valueOf(
-        backStackEntry?.destination?.route ?: AppScreen.Start.name
-    )
-
+fun AppScreens() {
+    val stateStack = rememberStateStack<AppScreen>()
     Scaffold(
         topBar = {
             BackBar(
-                currentScreen = currentScreen,
-                canNavigateBack = navController.previousBackStackEntry != null,
-                navigateUp = { navController.navigateUp() }
+                currentScreen = stateStack.lastItemOrNull,
+                stack = stateStack,
             )
         }
     ) { innerPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = AppScreen.Start.name,
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            composable(route = AppScreen.Start.name) {
+            if(stateStack.lastItemOrNull == null) {
                 RootScreen(
                     onDemoClicked = { newRoute ->
                         print("click on :$newRoute")
-                        navController.navigate(newRoute)
+                        stateStack.push(newRoute)
                     },
                     modifier = Modifier
                         .fillMaxSize()
@@ -66,7 +51,7 @@ fun AppScreen(
                 )
             }
 
-            composable(route = AppScreen.DemoComposeText.name) {
+            if(stateStack.lastItemOrNull == AppScreen.DemoComposeText) {
                 DemoComposeTextScreen(
                     modifier = Modifier
                         .fillMaxSize()
@@ -74,7 +59,7 @@ fun AppScreen(
                 )
             }
 
-            composable(route = AppScreen.DemoComposeList.name) {
+            if(stateStack.lastItemOrNull == AppScreen.DemoComposeList) {
                 DemoComposeListScreen(
                     modifier = Modifier
                         .fillMaxSize()

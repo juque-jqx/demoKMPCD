@@ -15,7 +15,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun RootScreen(
-    onDemoClicked: (String) -> Unit,
+    onDemoClicked: (AppScreen) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -23,11 +23,11 @@ fun RootScreen(
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(items = AppScreen.entries.minusElement(AppScreen.Start)) { demo ->
+        items(items = AppScreen.entries) { demoScreen ->
             DemoComposeButton(
-                labelResource = demo.title,
+                labelResource = demoScreen.title,
                 onClick = {
-                    onDemoClicked(demo.name)
+                    onDemoClicked(demoScreen)
                 }
             )
         }
