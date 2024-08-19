@@ -46,6 +46,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.voyager.navigator)
+            implementation(libs.tag.cloud)
             implementation(projects.shared)
         }
         desktopMain.dependencies {

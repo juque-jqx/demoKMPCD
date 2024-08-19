@@ -1,6 +1,7 @@
 package fr.juque.composeApp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,18 +19,21 @@ fun RootScreen(
     onDemoClicked: (AppScreen) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(
-        modifier = modifier,
-        verticalArrangement = Arrangement.SpaceEvenly,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        items(items = AppScreen.entries) { demoScreen ->
-            DemoComposeButton(
-                labelResource = demoScreen.title,
-                onClick = {
-                    onDemoClicked(demoScreen)
-                }
-            )
+    Row {
+
+        LazyColumn(
+            modifier = modifier,
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            items(items = AppScreen.entries) { demoScreen ->
+                DemoComposeButton(
+                    labelResource = demoScreen.title,
+                    onClick = {
+                        onDemoClicked(demoScreen)
+                    }
+                )
+            }
         }
     }
 }
